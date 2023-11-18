@@ -27,13 +27,13 @@ class GigaViewersTest(unittest.TestCase):
         for case in TEST_CASES:
             site = case["class"]()
 
-            self.assertEqual(site.url.compose(), case["url"])
+            assert site.url.compose() == case["url"]
 
     def test_parse_atom(self):
         for case in TEST_CASES:
             site = case["class"]()
             atom = site.parse_atom()
-            self.assertEqual(atom.feed.title, case["name"])
+            assert atom.feed.title == case["name"]
 
 
 if __name__ == "__main__":

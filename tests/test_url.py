@@ -10,8 +10,8 @@ class URLConfigTest(unittest.TestCase):
             domain="shonenjumpplus.com",
         )
 
-        self.assertEqual(url.scheme, "https")
-        self.assertEqual(url.domain, "shonenjumpplus.com")
+        assert url.scheme == "https"
+        assert url.domain == "shonenjumpplus.com"
 
     def test_compose(self):
         url = URLConfig(
@@ -19,8 +19,8 @@ class URLConfigTest(unittest.TestCase):
             domain="shonenjumpplus.com",
         )
 
-        self.assertEqual(url.compose(), "https://shonenjumpplus.com")
-        self.assertEqual(url.compose("atom"), "https://shonenjumpplus.com/atom")
+        assert url.compose() == "https://shonenjumpplus.com"
+        assert url.compose("atom") == "https://shonenjumpplus.com/atom"
 
 
 if __name__ == "__main__":

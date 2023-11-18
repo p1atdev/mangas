@@ -1,8 +1,8 @@
 import unittest
 
-from mangas.parsers import GigaParser
+from mangas.parsers import GigaAtomParser
 
-TEST_URLS = [
+ATOM_TEST_URLS = [
     "https://shonenjumpplus.com/atom",
     "https://tonarinoyj.jp/atom",
     "https://viewer.heros-web.com/atom",
@@ -21,16 +21,14 @@ TEST_URLS = [
 ]
 
 
-class GigaParserTest(unittest.TestCase):
+class GigaAtomParserTest(unittest.TestCase):
     def test_init_parser(self):
-        for url in TEST_URLS:
+        for url in ATOM_TEST_URLS:
             print(url)
-            parser = GigaParser(url=url)
-            try:
-                atom = parser.parse()
-                self.assertIsNotNone(atom.namespaces["giga"])
-            except Exception as e:
-                print(e)
+            parser = GigaAtomParser(url=url)
+
+            atom = parser.parse()
+            assert atom.namespaces["giga"]
 
 
 if __name__ == "__main__":

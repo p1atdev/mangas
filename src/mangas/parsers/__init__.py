@@ -1,2 +1,2 @@
 from .parser_util import *
-from .giga_parser import *
+from .giga import *

@@ -1,8 +1,21 @@
+import json
+import requests
 from pydantic import BaseModel
+
+from ..auth import AuthConfigMixin, DefaultAuthConfig
 
 
 class ParserMixin(BaseModel):
-    pass
+    auth: AuthConfigMixin = DefaultAuthConfig
+
+
+class JSONParserMixin(ParserMixin):
+    def _get_text(self, url: str):
+        res = requests.get(url, headers=self.auth.compose_header())
+        return res.text
+
+    def _get_json(self, url: str):
+        return json.loads(self._get_text(url))
 
 
 class Atom10ParseOutput(BaseModel):

@@ -1,11 +1,20 @@
 from .website_utils import WebsiteMixin
-from ..parsers import GigaParser
+from ..parsers import GigaAtomParser, GigaEpisodeParser
 
 
 # choJuGiga: baku 形式の website
 class GigaViewer(WebsiteMixin):
-    parser: type[GigaParser] = GigaParser
+    atom_parser: type[GigaAtomParser] = GigaAtomParser
+    episode_parser: type[GigaEpisodeParser] = GigaEpisodeParser
 
     def parse_atom(self):
-        atom = self.parser(url=self.url.compose("atom")).parse()
+        atom = self.atom_parser(url=self.url.compose("atom")).parse()
         return atom
+
+    def _parse_episode_id(self, url: str):
+        return [component for component in url.split("/") if component.strip() != ""][
+            -1
+        ]
+
+    def _get_episode_json(self, episode_id: str):
+        return self.episode_parser(url=self.url.compose(episode_id)).parse()
