@@ -1,8 +1,5 @@
-import feedparser
-
-from ..url import URLConfig
 from .website_utils import WebsiteMixin
-from ..parsers import GigaParser, ParserMixin
+from ..parsers import GigaParser
 
 
 # choJuGiga: baku 形式の website
