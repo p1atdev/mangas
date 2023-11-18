@@ -1,0 +1,6 @@
+requests
+tqdm
+pydantic=="^2.4.2"
+feedparser
+beautifulsoup4
+lxml
