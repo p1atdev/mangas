@@ -21,3 +21,7 @@ class URLConfigTest(unittest.TestCase):
 
         self.assertEqual(url.compose(), "https://shonenjumpplus.com")
         self.assertEqual(url.compose("atom"), "https://shonenjumpplus.com/atom")
+
+
+if __name__ == "__main__":
+    unittest.main()
