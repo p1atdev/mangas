@@ -17,16 +17,18 @@ TEST_URLS = [
     "https://kuragebunch.com/atom",
     "https://www.sunday-webry.com/atom",
     "https://magcomi.com/atom",
+    "https://pocket.shonenmagazine.com/atom",
 ]
 
 
-class ChoJuGigaParserTest(unittest.TestCase):
+class GigaParserTest(unittest.TestCase):
     def test_init_parser(self):
         for url in TEST_URLS:
             print(url)
             parser = GigaParser(url=url)
             try:
-                _ = parser.parse()
+                atom = parser.parse()
+                self.assertIsNotNone(atom.namespaces["giga"])
             except Exception as e:
                 print(e)
 
