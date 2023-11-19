@@ -25,19 +25,19 @@ site = MangaCross()
 
 class MangaCrossComicsParserTest(unittest.TestCase):
     def test_parse_all_comics(self):
-        parser = MangaCrossAllComicsParser(
+        parser = MangaCrossAllComicsParser()
+        output = parser.parse(
             url=site.url.compose(pathname="/api/comics.json"),
         )
-        output = parser.parse()
 
         assert output is not None
 
     def test_parse_comic(self):
         for comic_id in COMIC_IDS:
-            parser = MangaCrossComicParser(
+            parser = MangaCrossComicParser()
+            output = parser.parse(
                 url=site.url.compose(pathname=f"/api/comics/{comic_id}.json"),
             )
-            output = parser.parse()
 
             print(output.comic.title)
 
@@ -46,12 +46,12 @@ class MangaCrossComicsParserTest(unittest.TestCase):
     def test_parse_episode_viewr(self):
         for comic_id in COMIC_IDS:
             for episode_id in EPISODE_IDS:
-                parser = MangaCrossEpisodeViewerParser(
-                    url=site.url.compose(
+                parser = MangaCrossEpisodeViewerParser()
+                output = parser.parse(
+                    site.url.compose(
                         pathname=f"/comics/{comic_id}/{episode_id}/viewer.json"
-                    ),
+                    )
                 )
-                output = parser.parse()
 
                 print(output.comic.title, output.page_count)
 

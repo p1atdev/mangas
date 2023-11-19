@@ -42,10 +42,6 @@ class MangaCrossAllComicsParseOutput(BaseModel):
 
 
 class MangaCrossAllComicsParser(JSONParserMixin):
-    url: str
-
-    def parse(self):
-        output = MangaCrossAllComicsParseOutput.model_validate_json(
-            self._get_text(self.url)
-        )
+    def parse(self, url: str):
+        output = MangaCrossAllComicsParseOutput.model_validate_json(self._get_text(url))
         return output

@@ -64,10 +64,8 @@ class MangaCrossEpisodeViewerParseOutput(BaseModel):
 
 
 class MangaCrossEpisodeViewerParser(JSONParserMixin):
-    url: str
-
-    def parse(self):
+    def parse(self, url: str):
         output = MangaCrossEpisodeViewerParseOutput.model_validate_json(
-            self._get_text(self.url)
+            self._get_text(url)
         )
         return output

@@ -20,28 +20,26 @@ class MangaCross(WebsiteMixin):
     comic_parser: type[MangaCrossComicParser] = MangaCrossComicParser
 
     def parse_all_comics(self):
-        parser = MangaCrossAllComicsParser(
-            url=self.url.compose(pathname="/api/comics.json"),
+        parser = MangaCrossAllComicsParser()
+        output = parser.parse(
+            self.url.compose(pathname="/api/comics.json"),
         )
-        output = parser.parse()
 
         return output
 
     def parse_comic(self, comic_id: str):
-        parser = MangaCrossComicParser(
-            url=self.url.compose(pathname=f"/api/comics/{comic_id}.json"),
+        parser = MangaCrossComicParser()
+        output = parser.parse(
+            self.url.compose(pathname=f"/api/comics/{comic_id}.json"),
         )
-        output = parser.parse()
 
         return output
 
     def parse_episode_viewer(self, comic_id: str, episode_id: str | int):
-        parser = MangaCrossEpisodeViewerParser(
-            url=self.url.compose(
-                pathname=f"/comics/{comic_id}/{episode_id}/viewer.json"
-            ),
+        parser = MangaCrossEpisodeViewerParser()
+        output = parser.parse(
+            self.url.compose(pathname=f"/comics/{comic_id}/{episode_id}/viewer.json")
         )
-        output = parser.parse()
 
         return output
 
