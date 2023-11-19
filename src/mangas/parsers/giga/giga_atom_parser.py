@@ -73,7 +73,7 @@ class GigaAtomParser(ParserMixin):
     # TODO: atom 10 じゃない場合に分岐、認証
     def _get_atom(self) -> GigaAtomParseOutput:
         atom = feedparser.parse(
-            self.url.compose(), request_headers=self.auth.compose_header()
+            self.url.compose(), request_headers=self.auth.compose_headers()
         )
 
         return GigaAtomParseOutput(**atom)

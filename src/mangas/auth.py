@@ -28,7 +28,7 @@ SafariMobile = DeviceEnvironment(
 class AuthConfigMixin(BaseModel):
     user_agent: str | None = None
 
-    def compose_header(self) -> dict[str, str]:
+    def compose_headers(self) -> dict[str, str]:
         if self.user_agent is None:
             return {}
 
@@ -43,8 +43,8 @@ DefaultAuthConfig = AuthConfigMixin()
 class BearerAuthConfig(AuthConfigMixin):
     token: str
 
-    def compose_header(self) -> dict[str, str]:
+    def compose_headers(self) -> dict[str, str]:
         return {
             "Authorization": f"Bearer {self.token}",
-            **super().compose_header(),
+            **super().compose_headers(),
         }

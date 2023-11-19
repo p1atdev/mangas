@@ -11,7 +11,7 @@ class ParserMixin(BaseModel):
 
 class JSONParserMixin(ParserMixin):
     def _get_text(self, url: str):
-        res = requests.get(url, headers=self.auth.compose_header())
+        res = requests.get(url, headers=self.auth.compose_headers())
         return res.text
 
     def _get_json(self, url: str):
