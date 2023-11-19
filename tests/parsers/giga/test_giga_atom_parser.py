@@ -24,6 +24,8 @@ ATOM_TEST_URLS = [
 
 SERIES_ATOM_TEST_URLS = [
     "https://shonenjumpplus.com/atom/series/4856001361048451884",
+    "https://pocket.shonenmagazine.com/atom/series/13933686331618251437",
+    "https://magcomi.com/atom/series/10834108156763513460?free_only=1",
 ]
 
 
