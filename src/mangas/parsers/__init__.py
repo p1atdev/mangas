@@ -1,3 +1,3 @@
-from .parser_util import *
+from .parser_utils import *
 from .giga import *
 from .mangacross import *
