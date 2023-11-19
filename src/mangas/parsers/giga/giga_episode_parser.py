@@ -4,7 +4,6 @@ import requests
 from enum import Enum, IntEnum
 from datetime import datetime
 from pydantic import BaseModel, field_validator, ConfigDict
-import humps
 
 from ..parser_util import JSONParserMixin
 from ...utils import ForceCamelCaseModel
@@ -60,7 +59,7 @@ class GigaEpisodeReadableProduct(ForceCamelCaseModel):
     finish_reading_notification_uri: str | None = None
 
 
-class GigaEpisodeEntry(ForceCamelCaseModel):
+class GigaEpisodeParseOutput(ForceCamelCaseModel):
     readable_product: GigaEpisodeReadableProduct
 
 
@@ -69,5 +68,5 @@ class GigaEpisodeParser(JSONParserMixin):
 
     # TODO: auth
     def parse(self):
-        entry = GigaEpisodeEntry.model_validate_json(self._get_text(self.url))
-        return entry
+        output = GigaEpisodeParseOutput.model_validate_json(self._get_text(self.url))
+        return output
