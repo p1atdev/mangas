@@ -10,10 +10,19 @@ class URLConfig(BaseModel):
     def compose(
         self,
         *args,
+        **kwargs,
     ):
-        url = "/".join([self.scheme + "://" + self.hostname + self.pathname, *args])
+        params = {
+            "scheme": kwargs.get("scheme", self.scheme),
+            "hostname": kwargs.get("hostname", self.hostname),
+            "pathname": kwargs.get("pathname", self.pathname),
+            "query": kwargs.get("query", self.query),
+        }
+        url = "/".join(
+            [params["scheme"] + "://" + params["hostname"] + params["pathname"], *args]
+        )
         query_string = (
-            "&".join([f"{key}={value}" for key, value in self.query.items()])
+            "&".join([f"{key}={value}" for key, value in params["query"].items()])
             if len(self.query.keys()) > 0
             else None
         )
