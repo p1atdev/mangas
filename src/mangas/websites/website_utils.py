@@ -1,14 +1,14 @@
 from pydantic import BaseModel
 
 from ..url import URLConfig
-from ..auth import AuthConfigMixin
+from ..auth import AuthConfigMixin, DefaultAuthConfig
 from ..utils import MANGAS_CACHE_DIR
 from ..parsers import ParserMixin
 
 
 class WebsiteMixin(BaseModel):
     url: URLConfig
-    auth: AuthConfigMixin | None = None
+    auth: AuthConfigMixin = DefaultAuthConfig
 
     parser: type[ParserMixin] = ParserMixin
 
