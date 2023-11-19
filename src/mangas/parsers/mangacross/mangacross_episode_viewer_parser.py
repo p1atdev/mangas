@@ -2,7 +2,7 @@ from typing import Any
 from datetime import datetime, date
 from pydantic import BaseModel
 
-from ..parser_util import JSONParserMixin
+from ..parser_utils import JSONParserMixin
 
 
 class MangaCrossEpisodeViewerComic(BaseModel):

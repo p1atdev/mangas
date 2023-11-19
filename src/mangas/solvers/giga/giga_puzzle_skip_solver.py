@@ -1,4 +1,4 @@
-from ..solver_util import SolverMixin
+from ..solver_utils import SolverMixin
 from ...utils import ImageWrapper
 from ...auth import FirefoxMobile
 

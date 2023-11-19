@@ -2,7 +2,7 @@ from typing import Literal
 from datetime import datetime
 from pydantic import BaseModel
 
-from ..parser_util import JSONParserMixin
+from ..parser_utils import JSONParserMixin
 
 
 class MangaCrossAllComicsComicCategory(BaseModel):
