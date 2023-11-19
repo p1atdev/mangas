@@ -1,5 +1,4 @@
 import requests
-import cv2
 import numpy as np
 
 from pydantic import BaseModel

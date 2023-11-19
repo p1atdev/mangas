@@ -1,8 +1,6 @@
 from PIL import Image
-import cv2
 import numpy as np
 from io import BytesIO
-import requests
 
 from typing import Iterator
 import humps
@@ -34,10 +32,6 @@ class ImageWrapper(BaseModel):
         return cls.from_pil(Image.fromarray(image))
 
     @classmethod
-    def from_cv2(cls, image: np.ndarray):
-        return cls.from_numpy(image)
-
-    @classmethod
     def from_stream(cls, stream: Iterator[bytearray]):
         return cls(bytes=b"".join(stream))
 
@@ -46,6 +40,3 @@ class ImageWrapper(BaseModel):
 
     def to_numpy(self):
         return np.array(self.to_pil())
-
-    def to_cv2(self):
-        return self.to_numpy()

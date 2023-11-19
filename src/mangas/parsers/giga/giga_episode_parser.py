@@ -66,7 +66,6 @@ class GigaEpisodeParseOutput(ForceCamelCaseModel):
 class GigaEpisodeParser(JSONParserMixin):
     url: str
 
-    # TODO: auth
     def parse(self):
         output = GigaEpisodeParseOutput.model_validate_json(self._get_text(self.url))
         return output
