@@ -1,7 +1,7 @@
 import json
 import requests
 
-from enum import Enum, IntEnum
+from typing import Literal
 from datetime import datetime
 from pydantic import BaseModel, field_validator, ConfigDict
 
@@ -9,15 +9,8 @@ from ..parser_util import JSONParserMixin
 from ...utils import ForceCamelCaseModel
 
 
-class GigaEpisodeTypeEnum(Enum):
-    BACK_MATTER = "backMatter"
-    LINK = "link"
-    MAIN = "main"
-    OTHER = "other"
-
-
 class GigaEpisodePage(ForceCamelCaseModel):
-    type: GigaEpisodeTypeEnum
+    type: Literal["backMatter", "link", "main", "other"]
     content_start: str | None = None
     content_end: str | None = None
     link_position: str | None = None

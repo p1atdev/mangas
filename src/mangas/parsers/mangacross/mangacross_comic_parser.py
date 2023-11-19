@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any
+from typing import Any, Literal
 from datetime import datetime, date
 from pydantic import BaseModel
 
@@ -35,11 +35,6 @@ class MangaCrossComicOgpURL(Enum):
     EPISODE_OGPS_ORIGINAL_MISSING_PNG = "/episode_ogps/original/missing.png"
 
 
-class MangaCrossComicStatus(Enum):
-    PRIVATE = "private"
-    PUBLIC = "public"
-
-
 class MangaCrossComicEpisode(BaseModel):
     id: int
     volume: str
@@ -48,7 +43,7 @@ class MangaCrossComicEpisode(BaseModel):
     title: str
     publish_start: datetime
     member_publish_start: datetime
-    status: MangaCrossComicStatus
+    status: Literal["private", "public"]
     page_url: str
     ogp_url: MangaCrossComicOgpURL
     list_image_url: str

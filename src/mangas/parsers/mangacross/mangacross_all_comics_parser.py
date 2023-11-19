@@ -1,25 +1,13 @@
-from enum import Enum
+from typing import Literal
 from datetime import datetime
 from pydantic import BaseModel
 
 from ..parser_util import JSONParserMixin
 
 
-class MangaCrossAllComicsDisplayName(Enum):
-    大人 = "大人"
-    少女 = "少女"
-    少年 = "少年"
-
-
-class MangaCrossAllComicsName(Enum):
-    BOY = "boy"
-    GIRL = "girl"
-    YOUTH = "youth"
-
-
 class MangaCrossAllComicsComicCategory(BaseModel):
-    name: MangaCrossAllComicsName
-    display_name: MangaCrossAllComicsDisplayName
+    name: Literal["boy", "girl", "youth"]
+    display_name: Literal["少年", "少女", "大人"]
     color: str
 
 
