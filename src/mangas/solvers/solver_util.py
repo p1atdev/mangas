@@ -1,5 +1,6 @@
 import requests
 import numpy as np
+from io import BytesIO
 
 from pydantic import BaseModel
 
@@ -19,6 +20,6 @@ class SolverMixin(BaseModel):
         raise NotImplementedError
 
     def _fetch_image(self, url):
-        res = requests.get(url, headers=self.auth.compose_headers(), stream=True)
-        image = ImageWrapper.from_stream(res.iter_content())
+        res = requests.get(url, headers=self.auth.compose_headers())
+        image = ImageWrapper.from_bytesio(BytesIO(res.content))
         return image

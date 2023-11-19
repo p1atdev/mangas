@@ -35,6 +35,10 @@ class ImageWrapper(BaseModel):
     def from_stream(cls, stream: Iterator[bytearray]):
         return cls(bytes=b"".join(stream))
 
+    @classmethod
+    def from_bytesio(cls, bytesio: BytesIO):
+        return cls(bytes=bytesio.getvalue())
+
     def to_pil(self):
         return Image.open(BytesIO(self.bytes))
 
