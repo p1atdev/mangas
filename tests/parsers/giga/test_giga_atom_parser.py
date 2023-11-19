@@ -1,6 +1,8 @@
 import unittest
 
 from mangas.parsers import GigaAtomParser
+from mangas.url import URLConfig
+
 
 ATOM_TEST_URLS = [
     "https://shonenjumpplus.com/atom",
@@ -20,15 +22,27 @@ ATOM_TEST_URLS = [
     "https://pocket.shonenmagazine.com/atom",
 ]
 
+SERIES_ATOM_TEST_URLS = [
+    "https://shonenjumpplus.com/atom/series/4856001361048451884",
+]
+
 
 class GigaAtomParserTest(unittest.TestCase):
-    def test_init_parser(self):
+    def test_parse_root_atom(self):
         for url in ATOM_TEST_URLS:
             print(url)
-            parser = GigaAtomParser(url=url)
+            parser = GigaAtomParser(url=URLConfig.from_string(url))
 
             atom = parser.parse()
             assert atom.namespaces["giga"]
+
+    def test_parse_series_atom(self):
+        for url in SERIES_ATOM_TEST_URLS:
+            series_atom_parser = GigaAtomParser(url=URLConfig.from_string(url))
+            series = series_atom_parser.parse()
+            print("title", series.feed.title)
+            print("entries", series.entries)
+            assert series
 
 
 if __name__ == "__main__":

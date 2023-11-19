@@ -5,5 +5,5 @@ from .giga_viewer import GigaViewer
 class TonariNoYoungJump(GigaViewer):
     url: URLConfig = URLConfig(
         scheme="https",
-        domain="tonarinoyj.jp",
+        hostname="tonarinoyj.jp",
     )

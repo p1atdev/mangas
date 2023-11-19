@@ -2,6 +2,7 @@ import unittest
 
 from mangas.parsers import GigaAtomParser, GigaEpisodeParser
 from mangas.auth import FirefoxPC, AuthConfigMixin
+from mangas.url import URLConfig
 
 ATOM_TEST_URLS = [
     "https://shonenjumpplus.com/atom",
@@ -28,9 +29,9 @@ auth = AuthConfigMixin(
 
 
 class GigaEpisodeParserTest(unittest.TestCase):
-    def test_init_parser(self):
+    def test_parse_episode(self):
         for url in ATOM_TEST_URLS:
-            atom_parser = GigaAtomParser(url=url)
+            atom_parser = GigaAtomParser(url=URLConfig.from_string(url))
             atom = atom_parser.parse()
             link = atom.entries[0].link
             assert link

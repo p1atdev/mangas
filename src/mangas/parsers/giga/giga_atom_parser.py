@@ -4,6 +4,7 @@ from datetime import datetime
 from pydantic import BaseModel, field_validator
 
 from ..parser_util import ParserMixin, Atom10ParseOutput
+from ...url import URLConfig
 
 
 class GigaAtomLink(BaseModel):
@@ -62,7 +63,8 @@ class GigaAtomParseOutput(Atom10ParseOutput):
 
 
 class GigaAtomParser(ParserMixin):
-    url: str
+    url: URLConfig
+    free_only: bool = False
 
     def parse(self):
         atom = self._get_atom()
@@ -70,6 +72,8 @@ class GigaAtomParser(ParserMixin):
 
     # TODO: atom 10 じゃない場合に分岐、認証
     def _get_atom(self) -> GigaAtomParseOutput:
-        atom = feedparser.parse(self.url, request_headers=self.auth.compose_header())
+        atom = feedparser.parse(
+            self.url.compose(), request_headers=self.auth.compose_header()
+        )
 
         return GigaAtomParseOutput(**atom)
