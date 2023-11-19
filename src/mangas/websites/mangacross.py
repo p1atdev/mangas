@@ -44,3 +44,23 @@ class MangaCross(WebsiteMixin):
         output = parser.parse()
 
         return output
+
+    # /comics/{comic_id}
+    def _parse_comic_id(self, url: str) -> str:
+        url_config = URLConfig.from_string(url)
+        components = [c for c in url_config.pathname.split("/") if c.strip() != ""]
+        assert len(components) >= 2
+
+        comic_id = components[1]
+
+        return comic_id
+
+    # /comics/{comic_id}/{episode_id}
+    def _parse_episode_id(self, url: str) -> str:
+        url_config = URLConfig.from_string(url)
+        components = [c for c in url_config.pathname.split("/") if c.strip() != ""]
+        assert len(components) >= 3
+
+        episode_id = components[2]
+
+        return episode_id

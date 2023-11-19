@@ -50,6 +50,35 @@ class MangaCrossTest(unittest.TestCase):
                 assert output is not None
                 assert output.page_count == len(output.episode_pages)
 
+    def test_parse_comic_id(self):
+        site = MangaCross()
+        for comic_id in COMIC_IDS:
+            url = f"https://mangacross.jp/comics/{comic_id}"
+            output = site._parse_comic_id(url)
+
+            assert output == comic_id
+
+            url_long = f"https://mangacross.jp/comics/{comic_id}/1/viewer.json"
+            output_long = site._parse_comic_id(url_long)
+
+            assert output_long == comic_id
+
+    def test_parse_episode_id(self):
+        site = MangaCross()
+        for comic_id in COMIC_IDS:
+            for episode_id in EPISODE_IDS:
+                url = f"https://mangacross.jp/comics/{comic_id}/{episode_id}"
+                output = site._parse_episode_id(url)
+
+                assert output == str(episode_id)
+
+                url_long = (
+                    f"https://mangacross.jp/comics/{comic_id}/{episode_id}/viewer.json"
+                )
+                output_long = site._parse_episode_id(url_long)
+
+                assert output_long == str(episode_id)
+
 
 if __name__ == "__main__":
     unittest.main()
