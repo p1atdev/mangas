@@ -9,21 +9,17 @@ class GigaViewer(WebsiteMixin):
     episode_parser: type[GigaEpisodeParser] = GigaEpisodeParser
 
     def parse_atom(self, pathname: str):
-        atom = self.atom_parser(
-            url=URLConfig.from_string(self.url.compose(pathname))
-        ).parse()
+        atom = self.atom_parser().parse(url=self.url.compose(pathname))
         return atom
 
     def parse_root_atom(self):
-        atom = self.atom_parser(
-            url=URLConfig.from_string(self.url.compose("atom"))
-        ).parse()
+        atom = self.atom_parser().parse(url=self.url.compose("atom"))
         return atom
 
     def parse_series_atom(self, series_id: str):
-        atom = self.atom_parser(
-            url=URLConfig.from_string(self.url.compose("atom", "series", series_id))
-        ).parse()
+        atom = self.atom_parser().parse(
+            url=self.url.compose("atom", "series", series_id)
+        )
         return atom
 
     def _parse_episode_id(self, url: str):
@@ -32,6 +28,6 @@ class GigaViewer(WebsiteMixin):
         ]
 
     def _get_episode_json(self, episode_id: str):
-        return self.episode_parser(
+        return self.episode_parser().parse(
             url=self.url.compose("atom", "series", episode_id)
-        ).parse()
+        )

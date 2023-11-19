@@ -33,15 +33,16 @@ class GigaAtomParserTest(unittest.TestCase):
     def test_parse_root_atom(self):
         for url in ATOM_TEST_URLS:
             print(url)
-            parser = GigaAtomParser(url=URLConfig.from_string(url))
+            parser = GigaAtomParser()
 
-            atom = parser.parse()
+            atom = parser.parse(url=url)
+
             assert atom.namespaces["giga"]
 
     def test_parse_series_atom(self):
         for url in SERIES_ATOM_TEST_URLS:
-            series_atom_parser = GigaAtomParser(url=URLConfig.from_string(url))
-            series = series_atom_parser.parse()
+            series_atom_parser = GigaAtomParser()
+            series = series_atom_parser.parse(url=url)
             print("title", series.feed.title)
             print("entries", series.entries)
             assert series

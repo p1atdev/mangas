@@ -31,15 +31,15 @@ auth = AuthConfigMixin(
 class GigaEpisodeParserTest(unittest.TestCase):
     def test_parse_episode(self):
         for url in ATOM_TEST_URLS:
-            atom_parser = GigaAtomParser(url=URLConfig.from_string(url))
-            atom = atom_parser.parse()
+            atom_parser = GigaAtomParser()
+            atom = atom_parser.parse(url=url)
             link = atom.entries[0].link
             assert link
 
             print(link)
-            episode_parser = GigaEpisodeParser(url=link + ".json", auth=auth)
+            episode_parser = GigaEpisodeParser(auth=auth)
 
-            episode = episode_parser.parse()
+            episode = episode_parser.parse(url=link + ".json")
             print("title", episode.readable_product.title)
             assert episode
 

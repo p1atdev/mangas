@@ -5,7 +5,7 @@ from typing import Literal
 from datetime import datetime
 from pydantic import BaseModel, field_validator, ConfigDict
 
-from ..parser_util import JSONParserMixin
+from ..parser_utils import JSONParserMixin
 from ...utils import ForceCamelCaseModel
 
 
@@ -57,8 +57,6 @@ class GigaEpisodeParseOutput(ForceCamelCaseModel):
 
 
 class GigaEpisodeParser(JSONParserMixin):
-    url: str
-
-    def parse(self):
-        output = GigaEpisodeParseOutput.model_validate_json(self._get_text(self.url))
+    def parse(self, url: str):
+        output = GigaEpisodeParseOutput.model_validate_json(self._get_text(url))
         return output

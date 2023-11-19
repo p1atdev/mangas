@@ -29,9 +29,8 @@ class GigaPuzzleSolverTest(unittest.TestCase):
             episode = GigaEpisodeParser(
                 auth=AuthConfigMixin(
                     user_agent=SafariMobile.user_agent,
-                ),
-                url=url,
-            ).parse()
+                )
+            ).parse(url=url)
 
             assert episode.readable_product.page_structure is not None
 
