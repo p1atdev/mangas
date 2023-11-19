@@ -1,3 +1,3 @@
 # parsers
 
-Atom や RSS フィードのパーサー
+Atom や RSS フィード、JSON のパーサー
