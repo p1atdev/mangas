@@ -8,3 +8,4 @@ pyhumps
 numpy
 pillow
 chompjs
+python-dotenv
