@@ -2,7 +2,8 @@ from PIL import Image
 import numpy as np
 from io import BytesIO
 
-from typing import Iterator
+import chompjs
+from typing import Iterator, Any
 import humps
 from pydantic import BaseModel, ConfigDict
 
@@ -44,3 +45,7 @@ class ImageWrapper(BaseModel):
 
     def to_numpy(self):
         return np.array(self.to_pil())
+
+
+def load_js_object(js_object: str) -> Any:
+    return chompjs.parse_js_object(js_object)
