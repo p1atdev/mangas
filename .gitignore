@@ -162,3 +162,5 @@ cython_debug/
 junit
 
 output
+
+.env.local
