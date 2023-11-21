@@ -16,6 +16,9 @@ class ShonenJumpPlusTest(unittest.TestCase):
         assert type(EMAIL) is str
         assert type(PASSWORD) is str
 
+        print("EMAIL:", EMAIL)
+        print("PASSWORD:", PASSWORD)
+
         website = ShonenJumpPlus()
 
         website.login(
