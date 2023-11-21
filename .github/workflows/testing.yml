@@ -34,6 +34,9 @@ jobs:
           pip install -r requirements.txt
           pip install -e .
       - name: Test with pytest
+        env:
+          SHONENJUMPPLUS_EMAIL: ${{ secrets.SHONENJUMPPLUS_EMAIL }}
+          SHONENJUMPPLUS_PASSWORD: ${{ secrets.SHONENJUMPPLUS_PASSWORD }}
         run: |
           pip install pytest pytest-cov
           pytest --doctest-modules --junitxml=junit/test-results.xml --cov=src --cov-report=xml --cov-report=html
