@@ -41,3 +41,30 @@ class UraSundayWebsiteTest(unittest.TestCase):
             output = site._parse_title_id(url)
 
             assert output == title_id
+
+    def test_parse_titles(self):
+        site = UraSunday()
+
+        output = site.parse_titles("/serial_title")
+
+        assert len(output.titles) > 0
+
+        print(output.titles[0].url)
+
+    def test_parse_serial_titles(self):
+        site = UraSunday()
+
+        output = site.parse_serial_titles()
+
+        assert len(output.titles) > 0
+
+        print(output.titles[0].url)
+
+    def test_parse_complete_titles(self):
+        site = UraSunday()
+
+        output = site.parse_complete_titles()
+
+        assert len(output.titles) > 0
+
+        print(output.titles[0].url)

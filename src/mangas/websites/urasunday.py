@@ -2,7 +2,7 @@ import re
 
 from ..url import URLConfig
 from .website_utils import WebsiteMixin
-from ..parsers import UraSundayEpisodeParser
+from ..parsers import UraSundayEpisodeParser, UraSundayTitlesParser
 
 
 # https://urasunday.com
@@ -11,6 +11,22 @@ class UraSunday(WebsiteMixin):
         scheme="https",
         hostname="urasunday.com",
     )
+
+    def parse_titles(self, pathname: str):
+        parser = UraSundayTitlesParser()
+        output = parser.parse(
+            self.url.compose(
+                pathname=pathname,
+            ),
+        )
+
+        return output
+
+    def parse_serial_titles(self):
+        return self.parse_titles(pathname="/serial_title")
+
+    def parse_complete_titles(self):
+        return self.parse_titles(pathname="/complete_title")
 
     def parse_episode(self, title_id: str, episode_id: str | None = None):
         parser = UraSundayEpisodeParser()
