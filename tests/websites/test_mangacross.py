@@ -21,15 +21,15 @@ class MangaCrossTest(unittest.TestCase):
     # /api/comics.json
     def test_parse_all_comics(self):
         site = MangaCross()
-        output = site.parse_all_comics()
+        output = site.parse_comics()
 
         assert output is not None
 
     # /api/comics/{comic_id}.json
-    def test_parse_comic(self):
+    def test_parse_series(self):
         site = MangaCross()
         for comic_id in COMIC_IDS:
-            output = site.parse_comic(comic_id)
+            output = site.parse_series(comic_id)
 
             print(output.comic.title)
 
