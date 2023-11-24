@@ -1,5 +1,5 @@
 from ..url import URLConfig
-from .giga_viewer import WebsiteMixin
+from .website_utils import WebsiteMixin
 from ..parsers.mangacross import (
     MangaCrossComicsParser,
     MangaCrossSeriesParser,
