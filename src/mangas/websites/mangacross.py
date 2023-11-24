@@ -1,8 +1,8 @@
 from ..url import URLConfig
 from .giga_viewer import WebsiteMixin
 from ..parsers.mangacross import (
-    MangaCrossAllComicsParser,
-    MangaCrossComicParser,
+    MangaCrossComicsParser,
+    MangaCrossSeriesParser,
     MangaCrossEpisodeViewerParser,
 )
 
@@ -14,21 +14,21 @@ class MangaCross(WebsiteMixin):
     )
 
     # /api/comics.json
-    all_comics_parser: type[MangaCrossAllComicsParser] = MangaCrossAllComicsParser
+    comics_parser: type[MangaCrossComicsParser] = MangaCrossComicsParser
 
     # /api/comics/{comic_id}.json
-    comic_parser: type[MangaCrossComicParser] = MangaCrossComicParser
+    series_parser: type[MangaCrossSeriesParser] = MangaCrossSeriesParser
 
-    def parse_all_comics(self):
-        parser = MangaCrossAllComicsParser()
+    def parse_comics(self):
+        parser = MangaCrossComicsParser()
         output = parser.parse(
             self.url.compose(pathname="/api/comics.json"),
         )
 
         return output
 
-    def parse_comic(self, comic_id: str):
-        parser = MangaCrossComicParser()
+    def parse_series(self, comic_id: str):
+        parser = MangaCrossSeriesParser()
         output = parser.parse(
             self.url.compose(pathname=f"/api/comics/{comic_id}.json"),
         )

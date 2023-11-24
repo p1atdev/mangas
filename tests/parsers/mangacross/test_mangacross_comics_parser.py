@@ -2,8 +2,8 @@ import unittest
 
 from mangas.websites import MangaCross
 from mangas.parsers import (
-    MangaCrossAllComicsParser,
-    MangaCrossComicParser,
+    MangaCrossComicsParser,
+    MangaCrossSeriesParser,
     MangaCrossEpisodeViewerParser,
 )
 from mangas.auth import FirefoxPC, AuthConfigMixin
@@ -25,7 +25,7 @@ site = MangaCross()
 
 class MangaCrossComicsParserTest(unittest.TestCase):
     def test_parse_all_comics(self):
-        parser = MangaCrossAllComicsParser()
+        parser = MangaCrossComicsParser()
         output = parser.parse(
             url=site.url.compose(pathname="/api/comics.json"),
         )
@@ -34,7 +34,7 @@ class MangaCrossComicsParserTest(unittest.TestCase):
 
     def test_parse_comic(self):
         for comic_id in COMIC_IDS:
-            parser = MangaCrossComicParser()
+            parser = MangaCrossSeriesParser()
             output = parser.parse(
                 url=site.url.compose(pathname=f"/api/comics/{comic_id}.json"),
             )

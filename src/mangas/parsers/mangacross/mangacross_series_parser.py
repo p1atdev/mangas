@@ -120,11 +120,11 @@ class MangaCrossComic(BaseModel):
     related_comics: list[MangaCrossComicRelatedComic]
 
 
-class MangaCrossComicParseOutput(BaseModel):
+class MangaCrossSeriesParseOutput(BaseModel):
     comic: MangaCrossComic
 
 
-class MangaCrossComicParser(JSONParserMixin):
+class MangaCrossSeriesParser(JSONParserMixin):
     def parse(self, url: str):
-        output = MangaCrossComicParseOutput.model_validate_json(self._get_text(url))
+        output = MangaCrossSeriesParseOutput.model_validate_json(self._get_text(url))
         return output
