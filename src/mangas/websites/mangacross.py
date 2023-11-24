@@ -35,7 +35,7 @@ class MangaCross(WebsiteMixin):
 
         return output
 
-    def parse_episode_viewer(self, comic_id: str, episode_id: str | int):
+    def parse_episode(self, comic_id: str, episode_id: str | int):
         parser = MangaCrossEpisodeParser()
         output = parser.parse(
             self.url.compose(pathname=f"/comics/{comic_id}/{episode_id}/viewer.json")
@@ -44,7 +44,8 @@ class MangaCross(WebsiteMixin):
         return output
 
     # /comics/{comic_id}
-    def _parse_comic_id(self, url: str) -> str:
+    @staticmethod
+    def _parse_comic_id(url: str) -> str:
         url_config = URLConfig.from_string(url)
         components = [c for c in url_config.pathname.split("/") if c.strip() != ""]
         assert len(components) >= 2
@@ -54,7 +55,8 @@ class MangaCross(WebsiteMixin):
         return comic_id
 
     # /comics/{comic_id}/{episode_id}
-    def _parse_episode_id(self, url: str) -> str:
+    @staticmethod
+    def _parse_episode_id(url: str) -> str:
         url_config = URLConfig.from_string(url)
         components = [c for c in url_config.pathname.split("/") if c.strip() != ""]
         assert len(components) >= 3

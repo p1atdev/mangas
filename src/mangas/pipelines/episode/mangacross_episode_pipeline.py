@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 from ..pipeline_utils import PipelineMixin
 from ...websites import MangaCross
-from ...parsers import MangaCrossEpisodeViewerParseOutput
+from ...parsers import MangaCrossEpisodeParseOutput
 from ...solvers import SkipSolver
 from ...url import URLConfig
 from ...auth import AuthConfigMixin, ChromePC, SafariMobile
@@ -16,7 +16,7 @@ from ...utils import MANGAS_CACHE_DIR, ImageWrapper
 
 
 class MangaCrossEpisodeOutput(BaseModel):
-    parse_output: MangaCrossEpisodeViewerParseOutput
+    parse_output: MangaCrossEpisodeParseOutput
     solver: SkipSolver
 
     # 漫画のページを難読化解除した状態で返す
@@ -76,7 +76,7 @@ class MangaCrossEpisodePipeline(PipelineMixin):
     def __call__(
         self,
     ):
-        episode = self.website.parse_episode_viewer(
+        episode = self.website.parse_episode(
             comic_id=self.comic_id, episode_id=self.episode_id
         )
 

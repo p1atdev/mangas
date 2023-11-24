@@ -43,7 +43,7 @@ class MangaCrossTest(unittest.TestCase):
         site = MangaCross()
         for comic_id in COMIC_IDS:
             for episode_id in EPISODE_IDS:
-                output = site.parse_episode_viewer(comic_id, episode_id)
+                output = site.parse_episode(comic_id, episode_id)
 
                 print(output.comic.title, output.page_count)
 
