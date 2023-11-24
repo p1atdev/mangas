@@ -5,3 +5,4 @@ from .tonarinoyj import *
 from .website_utils import *
 
 from .mangacross import *
+from .urasunday import *

@@ -15,6 +15,7 @@ class UraSundayTitlesParseOutput(BaseModel):
     titles: list[UraSundayTitlesTitle]
 
 
+# https://urasunday.com/serial_title 等
 class UraSundayTitlesParser(HTMLParserMixin):
     def parse(self, url: str):
         text = self._get_soup(url)

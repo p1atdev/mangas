@@ -1,6 +1,6 @@
 import unittest
 
-from mangas.parsers import UraSundayTitlesParser, UraSundayEpisodeViewerParser
+from mangas.parsers import UraSundayTitlesParser, UraSundayEpisodeParser
 
 SERIAL_URL = "https://urasunday.com/serial_title"
 COMPLETE_URL = "https://urasunday.com/complete_title"
@@ -23,7 +23,7 @@ class UraSundayTitlesParserTest(unittest.TestCase):
         assert titles
 
     def test_parse_episode(self):
-        parser = UraSundayEpisodeViewerParser()
+        parser = UraSundayEpisodeParser()
 
         for title_id in TITLE_IDS:
             output = parser.parse(url=f"https://urasunday.com/title/{title_id}/")

@@ -16,11 +16,12 @@ class UraSundayEpisodeImagePage(BaseModel):
     spread: Literal["single"] | None = None
 
 
-class UraSundayEpisodeViewerParseOutput(BaseModel):
+class UraSundayEpisodeParseOutput(BaseModel):
     pages: list[UraSundayEpisodeImagePage | UraSundayEpisodeHTMLPage]
 
 
-class UraSundayEpisodeViewerParser(HTMLParserMixin):
+# https://urasunday.com/title/0000/00000 や https://urasunday.com/title/0000 など
+class UraSundayEpisodeParser(HTMLParserMixin):
     script_selector: str = "body > script:nth-child(7)"
     script_pattern: str = r"const\s+pages\s*=\s*\[([^\]]*)\]"
 
@@ -45,4 +46,4 @@ class UraSundayEpisodeViewerParser(HTMLParserMixin):
         else:
             raise ValueError("match is None")
 
-        return UraSundayEpisodeViewerParseOutput.model_validate({"pages": pages})
+        return UraSundayEpisodeParseOutput.model_validate({"pages": pages})
