@@ -36,6 +36,10 @@ class AuthConfigMixin(BaseModel):
             "User-Agent": self.user_agent,
         }
 
+    @classmethod
+    def auto_setup(cls) -> "AuthConfigMixin":
+        return cls()
+
 
 DefaultAuthConfig = AuthConfigMixin()
 
