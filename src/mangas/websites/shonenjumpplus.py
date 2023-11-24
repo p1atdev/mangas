@@ -27,7 +27,7 @@ class ShonenJumpPlus(GigaViewer):
         hostname="shonenjumpplus.com",
     )
 
-    def login(self, email: str, password: str):
+    def login(self, email: str, password: str) -> ShonenJumpPlusAuthConfig:
         headers = self.auth.compose_headers()
         boundary = self._random_boundary()
         headers["Content-Type"] = "multipart/form-data; boundary=" + boundary
@@ -58,9 +58,15 @@ class ShonenJumpPlus(GigaViewer):
         if token is None:
             raise Exception("Login failed")
 
-        self.auth.token = token
+        auth = ShonenJumpPlusAuthConfig(
+            token=token,
+            **self.auth.model_dump(exclude=set(["token"])),
+        )
 
-    def _random_boundary(self, length: int = 30):
+        return auth
+
+    @classmethod
+    def _random_boundary(cls, length: int = 30):
         return "---------------------------" + "".join(
             [str(random.randint(0, 9)) for _ in range(length)]
         )

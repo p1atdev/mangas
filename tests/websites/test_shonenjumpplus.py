@@ -21,7 +21,7 @@ class ShonenJumpPlusTest(unittest.TestCase):
 
         website = ShonenJumpPlus()
 
-        website.login(
+        website.auth = website.login(
             email=EMAIL,
             password=PASSWORD,
         )
