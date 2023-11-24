@@ -4,7 +4,7 @@ from mangas.websites import MangaCross
 from mangas.parsers import (
     MangaCrossComicsParser,
     MangaCrossSeriesParser,
-    MangaCrossEpisodeViewerParser,
+    MangaCrossEpisodeParser,
 )
 from mangas.auth import FirefoxPC, AuthConfigMixin
 from mangas.url import URLConfig
@@ -46,7 +46,7 @@ class MangaCrossComicsParserTest(unittest.TestCase):
     def test_parse_episode_viewr(self):
         for comic_id in COMIC_IDS:
             for episode_id in EPISODE_IDS:
-                parser = MangaCrossEpisodeViewerParser()
+                parser = MangaCrossEpisodeParser()
                 output = parser.parse(
                     site.url.compose(
                         pathname=f"/comics/{comic_id}/{episode_id}/viewer.json"

@@ -3,7 +3,7 @@ from .giga_viewer import WebsiteMixin
 from ..parsers.mangacross import (
     MangaCrossComicsParser,
     MangaCrossSeriesParser,
-    MangaCrossEpisodeViewerParser,
+    MangaCrossEpisodeParser,
 )
 
 
@@ -36,7 +36,7 @@ class MangaCross(WebsiteMixin):
         return output
 
     def parse_episode_viewer(self, comic_id: str, episode_id: str | int):
-        parser = MangaCrossEpisodeViewerParser()
+        parser = MangaCrossEpisodeParser()
         output = parser.parse(
             self.url.compose(pathname=f"/comics/{comic_id}/{episode_id}/viewer.json")
         )
