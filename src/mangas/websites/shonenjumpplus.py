@@ -6,7 +6,15 @@ from .giga_viewer import GigaViewer
 from ..auth import AuthConfigMixin, ChromePC
 
 
+ShonenJumpPlusURL = URLConfig(
+    scheme="https",
+    hostname="shonenjumpplus.com",
+)
+
+
 class ShonenJumpPlusAuthConfig(AuthConfigMixin):
+    _url: URLConfig = ShonenJumpPlusURL
+
     user_agent: str = ChromePC.user_agent
 
     token: str | None = None
@@ -22,10 +30,7 @@ class ShonenJumpPlusAuthConfig(AuthConfigMixin):
 
 class ShonenJumpPlus(GigaViewer):
     auth: ShonenJumpPlusAuthConfig = ShonenJumpPlusAuthConfig()
-    url: URLConfig = URLConfig(
-        scheme="https",
-        hostname="shonenjumpplus.com",
-    )
+    url: URLConfig = ShonenJumpPlusURL
 
     def login(self, email: str, password: str) -> ShonenJumpPlusAuthConfig:
         headers = self.auth.compose_headers()

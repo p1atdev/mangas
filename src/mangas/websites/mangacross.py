@@ -6,12 +6,14 @@ from ..parsers.mangacross import (
     MangaCrossEpisodeParser,
 )
 
+MangaCrossURL = URLConfig(
+    scheme="https",
+    hostname="mangacross.jp",
+)
+
 
 class MangaCross(WebsiteMixin):
-    url: URLConfig = URLConfig(
-        scheme="https",
-        hostname="mangacross.jp",
-    )
+    url: URLConfig = MangaCrossURL
 
     # /api/comics.json
     comics_parser: type[MangaCrossComicsParser] = MangaCrossComicsParser
