@@ -12,8 +12,14 @@ class UraSunday(WebsiteMixin):
         hostname="urasunday.com",
     )
 
+    titles_parser: type[UraSundayTitlesParser] = UraSundayTitlesParser
+
+    episode_parser: type[UraSundayEpisodeParser] = UraSundayEpisodeParser
+
     def parse_titles(self, pathname: str):
-        parser = UraSundayTitlesParser()
+        parser = self.titles_parser(
+            auth=self.auth,
+        )
         output = parser.parse(
             self.url.compose(
                 pathname=pathname,
@@ -29,7 +35,9 @@ class UraSunday(WebsiteMixin):
         return self.parse_titles(pathname="/complete_title")
 
     def parse_episode(self, title_id: str, episode_id: str | None = None):
-        parser = UraSundayEpisodeParser()
+        parser = self.episode_parser(
+            auth=self.auth,
+        )
         episode_id = episode_id or ""
         output = parser.parse(
             self.url.compose(
