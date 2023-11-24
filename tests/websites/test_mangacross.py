@@ -39,7 +39,7 @@ class MangaCrossTest(unittest.TestCase):
     # def test_parse_episode(self):
 
     # /comics/{comic_id}/{episode_id}/viewer.json
-    def test_parse_episode_viewer(self):
+    def test_parse_episode(self):
         site = MangaCross()
         for comic_id in COMIC_IDS:
             for episode_id in EPISODE_IDS:
