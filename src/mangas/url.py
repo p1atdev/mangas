@@ -22,8 +22,14 @@ class URLConfig(BaseModel):
             [params["scheme"] + "://" + params["hostname"] + params["pathname"], *args]
         )
         query_string = (
-            "&".join([f"{key}={value}" for key, value in params["query"].items()])
-            if len(self.query.keys()) > 0
+            "&".join(
+                [
+                    f"{key}={value}"
+                    for key, value in params["query"].items()
+                    if value is not None
+                ]
+            )
+            if len(params["query"].keys()) > 0
             else None
         )
         if query_string is not None:
