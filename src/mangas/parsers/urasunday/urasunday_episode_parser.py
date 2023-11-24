@@ -3,6 +3,8 @@ import re
 from typing import Literal
 from pydantic import BaseModel
 
+from bs4 import BeautifulSoup
+
 from ..parser_utils import HTMLParserMixin
 from ...utils import load_js_object
 
@@ -17,6 +19,10 @@ class UraSundayEpisodeImagePage(BaseModel):
 
 
 class UraSundayEpisodeParseOutput(BaseModel):
+    title_name: str
+    episode_name: str
+    description: str
+
     pages: list[UraSundayEpisodeImagePage | UraSundayEpisodeHTMLPage]
 
 
@@ -28,13 +34,27 @@ class UraSundayEpisodeParser(HTMLParserMixin):
     def parse(self, url: str):
         soup = self._get_soup(url)
 
+        pages = self._parse_pages(soup)
+        title_name = self._parse_title_name(soup)
+        episode_name = self._parse_episode_name(soup)
+        description = self._parse_description(soup)
+
+        return UraSundayEpisodeParseOutput.model_validate(
+            {
+                "title_name": title_name,
+                "episode_name": episode_name,
+                "description": description,
+                "pages": pages,
+            }
+        )
+
+    def _parse_pages(self, soup: BeautifulSoup):
         target_script = soup.select_one(self.script_selector)
         assert target_script is not None
 
         inner_text = target_script.string
         assert inner_text is not None
 
-        # マッチを検索
         match = re.search(self.script_pattern, inner_text)
 
         if match:
@@ -46,4 +66,31 @@ class UraSundayEpisodeParser(HTMLParserMixin):
         else:
             raise ValueError("match is None")
 
-        return UraSundayEpisodeParseOutput.model_validate({"pages": pages})
+        return pages
+
+    def _parse_title_name(self, soup: BeautifulSoup):
+        title_el = soup.select_one("div.info > h1")
+        assert title_el is not None
+        title_name = title_el.string
+        assert isinstance(title_name, str)
+
+        return title_name.strip()
+
+    def _parse_episode_name(self, soup: BeautifulSoup):
+        episode_name_el = soup.select_one(
+            ".title > div:nth-child(1) > div:nth-child(1)"
+        )
+        assert episode_name_el is not None
+        episode_name = episode_name_el.string
+        assert isinstance(episode_name, str)
+
+        return episode_name.strip()
+
+    def _parse_description(self, soup: BeautifulSoup):
+        description_el = soup.select_one('meta[name="description"]')
+        assert description_el is not None
+
+        description = description_el["content"]
+        assert isinstance(description, str)
+
+        return description.strip()
