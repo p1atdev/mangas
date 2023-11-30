@@ -13,9 +13,10 @@ from ...solvers import SkipSolver
 from ...url import URLConfig
 from ...auth import AuthConfigMixin, ChromePC, SafariMobile
 from ...utils import MANGAS_CACHE_DIR, ImageWrapper
+from .episode_pipeline_utils import EpisodePipelineOutputMixin
 
 
-class MangaCrossEpisodeOutput(BaseModel):
+class MangaCrossEpisodeOutput(EpisodePipelineOutputMixin):
     parse_output: MangaCrossEpisodeParseOutput
     solver: SkipSolver
 

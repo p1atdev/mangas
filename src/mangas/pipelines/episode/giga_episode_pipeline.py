@@ -13,9 +13,10 @@ from ...solvers import GigaPuzzleSolver
 from ...url import URLConfig
 from ...auth import AuthConfigMixin, ChromePC, SafariMobile
 from ...utils import MANGAS_CACHE_DIR, ImageWrapper
+from .episode_pipeline_utils import EpisodePipelineOutputMixin
 
 
-class GigaEpisodeOutput(BaseModel):
+class GigaEpisodeOutput(EpisodePipelineOutputMixin):
     parse_output: GigaEpisodeParseOutput
     solver: GigaPuzzleSolver
 

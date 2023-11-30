@@ -13,9 +13,10 @@ from ...solvers import SkipSolver
 from ...url import URLConfig
 from ...auth import AuthConfigMixin
 from ...utils import MANGAS_CACHE_DIR, ImageWrapper
+from .episode_pipeline_utils import EpisodePipelineOutputMixin
 
 
-class UraSundayEpisodeOutput(BaseModel):
+class UraSundayEpisodeOutput(EpisodePipelineOutputMixin):
     parse_output: UraSundayEpisodeParseOutput
     solver: SkipSolver
 
