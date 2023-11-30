@@ -10,6 +10,7 @@ from ..parsers import (
     IchijinPlusComicsParser,
     IchijinPlusComicsSortBy,
     IchijinPlusComicsSortOrder,
+    IchijinPlusSeriesParser,
 )
 
 IchijinPlusURL = URLConfig(
@@ -68,6 +69,7 @@ class IchijinPlus(WebsiteMixin):
     api_url: URLConfig = IchijinPlusAPIURL
 
     comics_parser: type[IchijinPlusComicsParser] = IchijinPlusComicsParser
+    series_parser: type[IchijinPlusSeriesParser] = IchijinPlusSeriesParser
 
     def parse_comics(
         self,
@@ -90,6 +92,18 @@ class IchijinPlus(WebsiteMixin):
                     "sort": sort,
                     "after_than": after_than,
                 },
+            ),
+        )
+
+        return output
+
+    def parse_series(self, comic_id: str):
+        parser = self.series_parser(
+            auth=self.auth,
+        )
+        output = parser.parse(
+            self.api_url.compose(
+                pathname=f"/comics/{comic_id}",
             ),
         )
 

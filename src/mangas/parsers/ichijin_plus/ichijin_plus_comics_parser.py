@@ -4,6 +4,8 @@ from pydantic import BaseModel
 
 from ..parser_utils import JSONParserMixin
 
+from .ichijin_plus_common import IchijinPlusNsfwType
+
 IchijinPlusComicsNsfwInclude = Literal["all"] | None
 IchijinPlusComicsSortOrder = Literal["asc", "desc"]
 IchijinPlusComicsSortBy = Literal["title_yomigana"]
@@ -32,9 +34,6 @@ class IchijinPlusComicsLabel(BaseModel):
     catchphrase: str | None = None
 
 
-IchijinPlusComicsNsfwType = Literal["any", "none"]
-
-
 class IchijinPlusComicsLatestEpisode(BaseModel):
     id: str
     comic_id: str
@@ -45,7 +44,7 @@ class IchijinPlusComicsLatestEpisode(BaseModel):
     episode_order: int
     price: int
     expire_seconds: None
-    promotion: IchijinPlusComicsNsfwType
+    promotion: IchijinPlusNsfwType
 
 
 class IchijinPlusComicsResource(BaseModel):
@@ -55,7 +54,7 @@ class IchijinPlusComicsResource(BaseModel):
     description: str
     description_tag: str
     cover_image_url: str
-    nsfw_type: IchijinPlusComicsNsfwType
+    nsfw_type: IchijinPlusNsfwType
     authors: list[IchijinPlusComicsAuthor]
     labels: list[IchijinPlusComicsLabel]
     genres: list[IchijinPlusComicsGenre]

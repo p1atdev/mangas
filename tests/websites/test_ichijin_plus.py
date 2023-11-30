@@ -2,6 +2,8 @@ import unittest
 
 from mangas.websites import IchijinPlus
 
+COMIC_IDS = ["49461344665806", "2406857801750", "67585341292776"]
+
 
 class IchijinPlusTest(unittest.TestCase):
     def test_init_website(self):
@@ -48,3 +50,13 @@ class IchijinPlusTest(unittest.TestCase):
         print(second_output.resources[0].title)
 
         assert first_output.resources[0].title != second_output.resources[0].title
+
+    def test_parse_series(self):
+        site = IchijinPlus()
+
+        for comic_id in COMIC_IDS:
+            output = site.parse_series(comic_id=comic_id)
+
+            assert output.id == comic_id
+
+            print(output.title)
