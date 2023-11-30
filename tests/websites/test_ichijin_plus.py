@@ -4,6 +4,8 @@ from mangas.websites import IchijinPlus
 
 COMIC_IDS = ["49461344665806", "2406857801750", "67585341292776"]
 
+EPISODE_IDS = ["67705093080099", "49869036978995", "2886942130261", "7129295356145"]
+
 
 class IchijinPlusTest(unittest.TestCase):
     def test_init_website(self):
@@ -60,3 +62,13 @@ class IchijinPlusTest(unittest.TestCase):
             assert output.id == comic_id
 
             print(output.title)
+
+    def test_parse_episode(self):
+        site = IchijinPlus()
+
+        for episode_id in EPISODE_IDS:
+            output = site.parse_episode(episode_id=episode_id)
+
+            assert output.episode_id == episode_id
+
+            print(output.comic_title, output.episode_title)
