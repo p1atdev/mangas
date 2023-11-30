@@ -15,5 +15,4 @@ Hi Tingrui，
 期待回复，祝一切顺利！
 Cathy
 Tencent
-wechat/tel：18811736208
 mail：cathyjinjin@tencent.com
