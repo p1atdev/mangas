@@ -122,3 +122,17 @@ class IchijinPlus(WebsiteMixin):
         )
 
         return output
+
+    @staticmethod
+    def _parse_comic_id(url: str) -> str:
+        url_config = URLConfig.from_string(url)
+        path_components = url_config.pathname.split("/")
+        assert path_components[1] == "comics"
+        return path_components[2]
+
+    @staticmethod
+    def _parse_episode_id(url: str) -> str:
+        url_config = URLConfig.from_string(url)
+        path_components = url_config.pathname.split("/")
+        assert path_components[1] == "episodes"
+        return path_components[2]
